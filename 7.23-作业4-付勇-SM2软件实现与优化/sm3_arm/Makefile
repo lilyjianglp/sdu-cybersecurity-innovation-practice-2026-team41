@@ -12,21 +12,19 @@ LDFLAGS ?=
 PREFIX ?= /usr/local
 BINDIR ?= bin
 
-SRC_DIR := src
-INC_DIR := include
-TEST_DIR := test
-BENCH_DIR := bench
+C_DIR := ../sm3_c
+ARM_DIR := .
 
 IMPL ?= ref
 BENCH_ARGS ?=
 
 BUILD_DIR := build/$(IMPL)
 
-SM3_SRC := $(SRC_DIR)/sm3.c
-SM3_ARM64_NEON_SRC := $(SRC_DIR)/sm3_arm64_neon.c
-SM3_ARM64_ASM_SRC := $(SRC_DIR)/sm3_arm64.S
-TEST_SRC := $(TEST_DIR)/sm3_test.c
-BENCH_SRC := $(BENCH_DIR)/sm3_bench.c
+SM3_SRC := $(C_DIR)/sm3.c
+SM3_ARM64_NEON_SRC := $(ARM_DIR)/sm3_arm64_neon.c
+SM3_ARM64_ASM_SRC := $(ARM_DIR)/sm3_arm64.S
+TEST_SRC := $(C_DIR)/sm3_test.c
+BENCH_SRC := $(C_DIR)/sm3_bench.c
 
 SM3_OBJ := $(BUILD_DIR)/sm3.o
 SM3_ARM64_NEON_OBJ := $(BUILD_DIR)/sm3_arm64_neon.o
@@ -41,7 +39,7 @@ REF_BENCH_BIN := sm3_bench_ref
 ARM64_NEON_BENCH_BIN := sm3_bench_arm64_neon
 ARM64_ASM_BENCH_BIN := sm3_bench_arm64_asm
 
-INCLUDES := -I$(INC_DIR) -I$(SRC_DIR)
+INCLUDES := -I$(C_DIR)
 
 ifeq ($(IMPL),ref)
     IMPL_CPPFLAGS :=
@@ -68,14 +66,14 @@ $(BUILD_DIR):
 	mkdir -p $@
 
 $(SM3_OBJ): $(SM3_SRC) \
-            $(INC_DIR)/sm3.h \
-            $(SRC_DIR)/sm3_internal.h | $(BUILD_DIR)
+            $(C_DIR)/sm3.h \
+            $(C_DIR)/sm3_internal.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(IMPL_CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 		-c $< -o $@
 
 $(SM3_ARM64_NEON_OBJ): $(SM3_ARM64_NEON_SRC) \
-                       $(INC_DIR)/sm3.h \
-                       $(SRC_DIR)/sm3_internal.h | $(BUILD_DIR)
+                       $(C_DIR)/sm3.h \
+                       $(C_DIR)/sm3_internal.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(IMPL_CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 		-c $< -o $@
 
@@ -83,11 +81,11 @@ $(SM3_ARM64_ASM_OBJ): $(SM3_ARM64_ASM_SRC) | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(IMPL_CPPFLAGS) $(ASFLAGS) $(INCLUDES) \
 		-c $< -o $@
 
-$(TEST_OBJ): $(TEST_SRC) $(INC_DIR)/sm3.h | $(BUILD_DIR)
+$(TEST_OBJ): $(TEST_SRC) $(C_DIR)/sm3.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(IMPL_CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 		-c $< -o $@
 
-$(BENCH_OBJ): $(BENCH_SRC) $(INC_DIR)/sm3.h | $(BUILD_DIR)
+$(BENCH_OBJ): $(BENCH_SRC) $(C_DIR)/sm3.h | $(BUILD_DIR)
 	$(CC) $(CPPFLAGS) $(IMPL_CPPFLAGS) $(CFLAGS) $(INCLUDES) \
 		-c $< -o $@
 
