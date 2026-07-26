@@ -1,21 +1,5 @@
 #!/usr/bin/env python3
-"""
-Broadcast the prepared Bitcoin Testnet4 transaction, wait for confirmation,
-capture its raw transaction and complete raw block, and update metadata.
 
-This script is intentionally idempotent:
-- If the transaction is already in the mempool or already confirmed, it continues.
-- If interrupted while waiting, it can be run again safely.
-
-Inputs:
-  data/metadata.json
-  data/raw_transaction.hex
-
-Outputs:
-  data/raw_transaction.hex  (verified against the node)
-  data/raw_block.hex
-  data/metadata.json        (broadcast and block fields updated)
-"""
 
 from __future__ import annotations
 

@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""Build, sign, and preflight-check the course Bitcoin Testnet4 transaction.
 
-This program NEVER broadcasts the transaction.
-"""
 
 from __future__ import annotations
 

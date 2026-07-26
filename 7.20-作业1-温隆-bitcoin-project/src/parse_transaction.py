@@ -1,17 +1,5 @@
 #!/usr/bin/env python3
-"""
-Independently parse and verify a serialized Bitcoin transaction.
 
-Default inputs:
-  data/raw_transaction.hex
-  data/metadata.json
-
-The parser does not call Bitcoin Core. It reads raw bytes directly, prints a
-byte-offset table, decodes common scripts, parses a classic P2PKH scriptSig,
-and recomputes TXID/WTXID.
-
-The parsing functions are intentionally reusable by src/parse_block.py.
-"""
 
 from __future__ import annotations
 

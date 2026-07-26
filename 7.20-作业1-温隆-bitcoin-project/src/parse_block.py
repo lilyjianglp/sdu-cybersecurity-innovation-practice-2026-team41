@@ -1,23 +1,5 @@
 #!/usr/bin/env python3
-"""
-Independently parse and verify a complete serialized Bitcoin block.
 
-Default inputs:
-  data/raw_block.hex
-  data/raw_transaction.hex
-  data/metadata.json
-
-This program does not call Bitcoin Core. It:
-  - parses the 80-byte block header;
-  - parses every transaction using src/parse_transaction.py;
-  - identifies the Coinbase transaction and BIP34 block height;
-  - recomputes the transaction Merkle root;
-  - recomputes the block hash;
-  - expands nBits into the full proof-of-work target;
-  - verifies block_hash <= target;
-  - verifies the SegWit witness commitment when present;
-  - confirms that the experiment transaction is present at the expected index.
-"""
 
 from __future__ import annotations
 
