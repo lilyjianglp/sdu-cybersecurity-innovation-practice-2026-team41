@@ -1,0 +1,7 @@
+build/
+sm3_x86_test
+sm3_x86_bench
+sm3_x86_cli
+results/
+*.o
+*.asm
